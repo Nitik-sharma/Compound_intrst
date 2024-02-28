@@ -1,9 +1,27 @@
 const amount = document.getElementById("amount");
 const rate = document.getElementById("rate");
 const time = document.getElementById("year");
-console.log(time);
+const select = document.getElementById("selectType");
 
 const calculate = document.getElementById("btn");
+let n;
+
+select.addEventListener("change", () => {
+  if (select.value === "daily") {
+    n = 365;
+  } else if (select.value === "Monthly") {
+    n = 12;
+  } else if (select.value === "Quetraly") {
+    n = 4;
+  } else if (select.value === "Weakly") {
+    n = 52;
+  } else if (select.value === "Semi-yearly") {
+    n = 2;
+  } else {
+    n = 1;
+  }
+  console.log("value of n", n);
+});
 
 calculate.addEventListener("click", () => {
   const Principal = amount.value;
@@ -11,18 +29,18 @@ calculate.addEventListener("click", () => {
   const totalRate = rate.value / 100;
 
   const totalTime = time.value;
-  const n = 1;
 
   let base = 1 + totalRate / n;
 
   let power = n * totalTime;
   let CompoundAmount = Math.floor(Principal * Math.pow(base, power));
 
-  let CompoundIntrest = CompoundAmount - Principal;
+  let CompoundInterest = CompoundAmount - Principal;
 
   const div = document.createElement("div");
   const h1 = document.createElement("h1");
-  h1.innerHTML = `CompoundIntrest=${CompoundIntrest}`;
+  h1.innerHTML = `Compound Interest = ${CompoundInterest}`;
   div.appendChild(h1);
+  document.getElementById("solution").innerHTML = "";
   document.getElementById("solution").appendChild(div);
 });
